@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.mapname.config }}
+data:
+  DATABASE_HOST: {{ .Release.Name }}-{{ .Values.database.host }}
+  DATABASE_NAME: {{ .Release.Name }}-{{ .Values.database.name }}

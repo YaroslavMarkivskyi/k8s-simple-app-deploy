@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.api.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Values.api.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.api.name }}
+    spec:
+      containers:
+      - name: "{{ .Release.Name }}-{{ .Values.api.name }}-container"
+        image: "{{ .Values.api.image }}:{{ .Values.api.tag }}"
+        ports:
+        - containerPort: {{ .Values.api.port }}
+        env:
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ .Values.mapname.secret }}
+              key: DATABASE_USER
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-{{ .Values.mapname.secret }}
+              key: DATABASE_PASSWORD
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}-{{ .Values.mapname.config }}
+              key: DATABASE_HOST
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}-{{ .Values.mapname.config }}
+              key: DATABASE_NAME
+        resources:
+          requests:
+            memory: {{ .Values.api.resources.requests.memory }}
+            cpu: {{ .Values.api.resources.requests.cpu }}
+          limits:
+            memory: {{ .Values.api.resources.limits.memory }}
+            cpu: {{ .Values.api.resources.limits.cpu }}
