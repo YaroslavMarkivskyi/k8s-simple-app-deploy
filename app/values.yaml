@@ -1,23 +1,23 @@
 mapname:
-  config: "app-config"
-  secret: "db-credentials"
+  config: app-config
+  secret: db-credentials
 
 database:
-  host: "postgres-service"
-  name:  "your_database_name"
+  host: postgres-service
+  name:  postgres-service
 
 postgres:
-  serviceName: "postgres-service"
+  serviceName: postgres-service
   name: postgres
   image: postgres:13
-  containerPort: "5432"
+  containerPort: 5432
   storage: "1Gi"
 
 api:
-  name: "python-api"
-  image: "yaroslavmarkivskyi/my-simple-api"
-  tag: "latest"
-  port: "8000"
+  name: python-api
+  image: yaroslavmarkivskyi/my-simple-api
+  tag: latest
+  port: 8000
   resources:
     requests:
       memory: "256Mi"
@@ -26,10 +26,10 @@ api:
       memory: "512Mi"
       cpu: "500m"
   hpa:
-    min: "2"
-    max: "10"
+    min: 2
+    max: 10
 
 ingress:
-  port: "80"
+  port: 80
   pathType: Prefix
-  path: "/"
+  path: /
