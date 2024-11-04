@@ -1,4 +1,5 @@
-# Simple-App: A RESTful API Built with FastAPI
+# DEPLOYMENT WITH KUBERNETES
+A RESTful API Built with FastAPI.
 It features six key endpoints that facilitate interaction with a PostgreSQL database:
 
 - GET **/**: Returns a simple text response.
